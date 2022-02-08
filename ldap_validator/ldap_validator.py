@@ -135,8 +135,8 @@ def import_site_default(yaml_file, ldap_logger, sas_logger):
             assert(ldap_server_host is not None)
             err_msg = "Error: LDAP port is incorrectly defined."
             assert(ldap_server_port > 0)
-            err_msg = "Error: LDAP server is not accessible on specified host and port."
-            assert (ping_host(ldap_logger) is True)
+            #err_msg = "Error: LDAP server is not accessible on specified host and port."
+            #assert (ping_host(ldap_logger) is True)
             err_msg = "Error: LDAP password is undefined."
             assert(ldap_bind_pw is not None)
             err_msg = "Error: LDAP bind userDN is undefined."
@@ -197,7 +197,7 @@ def run_test_schedule(ldap_server_host, ldap_logger):
     if (not perform_ldap_query(ldap_logger, ldap_server_host, ldap_user_basedn, '(objectclass=*)')):
         failTestSuite(ldap_logger)
 
-    searchstring = '(&(objectClass=user)(sAMAccountName=' + ldap_defaultadmin_user + '))'
+    searchstring = '(&(objectClass=posixAccount)(uid=' + ldap_defaultadmin_user + '))'
     if (not perform_ldap_query(ldap_logger, ldap_server_host,  ldap_user_basedn, searchstring, True)):
         failTestSuite(ldap_logger)
 
